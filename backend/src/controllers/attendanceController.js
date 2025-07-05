@@ -23,44 +23,6 @@ export async function getSpecificSubject(req,res){
     }
 }
 
-export async function getAttendancePercentage(req,res){
-    try{
-        const subject = await Attendance.findById(req.params.id);
-        if (!subject)
-            return res.status(404).json({message:"Subject not found"});
-        const {presentCount,totalClasses}=subject;
-        const percentage=totalClasses===0?0:(presentCount/totalClasses)*100;
-        res.status(200).json({percentage:percentage.toFixed(2)});
-    }
-    catch(error){
-        console.error("Error in get specific attendances controller");
-        res.status(500).json({message:"Internal server error"});
-    }
-}
-
-export async function getAllPercentages(req,res){
-    try{
-        const subjects = await Attendance.find();
-        const result=subjects.map((subject)=>{
-            const {_id,subject:name,presentCount,totalClasses}=subject;
-            const percentage=totalClasses===0?0:(presentCount/totalClasses)*100;
-        return {
-            id:_id,
-            subject:name,
-            percentage:percentage.toFixed(2),
-            presentCount,
-            totalClasses
-        };
-        });
-        
-        res.status(200).json(result);
-    }
-    catch(error){
-        console.error("Error in get all attendances controller");
-        res.status(500).json({message:"Internal server error"});
-    }
-}
-
 export async function addSubject(req,res){
     try{
         const {subject,classDays,alreadyPresent,alreadyAbsent}=req.body
