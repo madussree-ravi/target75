@@ -17,7 +17,7 @@ const App = () => {
         <Route path="/deleteSubject/:id" element={<DeleteSubject/>}/>
         <Route path="/manageSubject" element={<ManageSubject/>}/>
         <Route path="/editSubject/:id" element={<EditSubject/>}/>
-        <Route path="/calendarView/:id" elememt={<CalendarView/>}/>
+        <Route path="/calendarView/:id" element={<CalendarView/>}/>
     </Routes>
   </div>
   );

@@ -81,7 +81,7 @@ const HomePage = () => {
                     ))}
                     </div>
             )}
-            {!loading && attendance.length===0 && <div className="text-center text-primary py-10">No Subjects Added yet!</div> }
+            {!isRateLimited && !loading && attendance.length===0 && <div className="text-center text-primary py-10">No Subjects Added yet!</div> }
         </div>
     </div>;
 }
