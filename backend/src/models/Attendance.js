@@ -12,6 +12,7 @@ const attendanceRecordSchema=new mongoose.Schema({
     }
 });
 const subjectSchema = new mongoose.Schema({
+    userId: { type: String, required: true },
     subject:{type:String,required:true},
     classDays:[{type:String,enum:["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]}],
     presentCount:{type:Number,default:0},

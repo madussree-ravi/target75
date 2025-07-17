@@ -1,7 +1,7 @@
 import Attendance from "../models/Attendance.js"
-export async function getAllSubjects(_,res){
+export async function getAllSubjects(req,res){
     try{
-        const attendance = await Attendance.find();
+        const attendance = await Attendance.find({ userId: req.user.uid });
         res.status(200).json(attendance);
     }
     catch(error){
@@ -12,7 +12,7 @@ export async function getAllSubjects(_,res){
 
 export async function getSpecificSubject(req,res){
     try{
-        const attendance = await Attendance.findById(req.params.id);
+        const attendance = await Attendance.findOne({ _id: req.params.id, userId: req.user.uid });
         if (!attendance)
             return res.status(404).json({message:"Subject not found"});
         res.status(200).json(attendance)
@@ -27,7 +27,7 @@ export async function addSubject(req,res){
     try{
         const {subject,classDays,alreadyPresent,alreadyAbsent}=req.body
         const Subject =new Attendance(
-            {subject,classDays,presentCount:alreadyPresent,absentCount:alreadyAbsent,totalClasses:alreadyPresent+alreadyAbsent})
+            {userId: req.user.uid,subject,classDays,presentCount:alreadyPresent,absentCount:alreadyAbsent,totalClasses:alreadyPresent+alreadyAbsent})
         const savedSubject = await Subject.save()
         res.status(201).json(savedSubject);
     }catch(error){
@@ -49,7 +49,7 @@ export async function markAttendance(req,res){
         if(!field){
             return res.status(400).json({message:"Invalid Status value"});
         }
-        const subject = await Attendance.findById(id);
+        const subject = await Attendance.findOne({ _id: id, userId: req.user.uid });
         if (!subject){
             return res.status(404).json({message:"Subject not found"});
         }
@@ -83,8 +83,8 @@ export async function updateSubject(req, res) {
         
         const totalClasses = Number(alreadyPresent) + Number(alreadyAbsent);
         
-        const updatedSubject = await Attendance.findByIdAndUpdate(
-            id,
+        const updatedSubject = await Attendance.findOneAndUpdate(
+            { _id: id, userId: req.user.uid },
             {
                 subject,
                 classDays,
@@ -109,7 +109,7 @@ export async function updateSubject(req, res) {
 
 export async function deleteSubject(req,res){
     try{
-        const deletedSubject = await Attendance.findByIdAndDelete(req.params.id)
+        const deletedSubject = await Attendance.findOneAndDelete({ _id: req.params.id, userId: req.user.uid })
         if (!deletedSubject){
             return res.status(404).json({message:"Subject not found"});
         }
@@ -123,7 +123,7 @@ export async function deleteSubject(req,res){
 
 export async function undoAttendance(req,res){
     try{
-        const subject = await Attendance.findById(req.params.id)
+        const subject = await Attendance.findOne({ _id: req.params.id, userId: req.user.uid })
         if (!subject|| subject.attendanceRecords.length===0){
             return res.status(404).json({message:"No attendance record found to undo"});
         }
@@ -133,7 +133,7 @@ export async function undoAttendance(req,res){
             subject.totalClasses-=1
         }
         else if (lastRecord.status==="Absent") {
-            subject.presentCount-=1
+            subject.absentCount-=1
             subject.totalClasses-=1
         }
         else if (lastRecord.status==="No Class") {

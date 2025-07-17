@@ -5,6 +5,7 @@ import NavBar from "../components/NavBar.jsx"
 import RateLimitedUI from '../components/RateLimitedUI.jsx';
 import SubjectCard from "../components/SubjectCard.jsx"
 import api from "../lib/axios"
+import { getAuth } from "firebase/auth";
 
 const HomePage = () => {
     const [isRateLimited,setIsRateLimited]=useState(false)
