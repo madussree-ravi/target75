@@ -35,7 +35,7 @@ const App = () => {
             <button 
             onClick={() => {
                 signOut(auth);
-                toast.success("Logged out successfully.");
+                toast.success("Logged out successfully.", { duration: 3000 });
                 toast.dismiss(t.id);
             }}
             className="btn btn-sm btn-error"
@@ -51,9 +51,9 @@ const App = () => {
     try {
       const result = await signInWithPopup(auth, provider);
       setUser(result.user);
-      toast.success("Signed in successfully!");
+      toast.success("Signed in successfully!", { duration: 3000 });
     } catch (error) {
-      toast.error("Failed to sign in.");
+      toast.error("Failed to sign in.", { duration: 3000 });
       console.error(error);
     }
     };
