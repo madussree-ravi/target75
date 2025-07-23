@@ -11,7 +11,7 @@ Designed specifically for students — especially those using iOS devices —  w
 - 📊 Real-time calculation of total classes and attendance %
 - 🔐 Secure Google Authentication via Firebase
 - 🚫 Rate limiting to prevent API abuse
-- ☁️ Deployed on Render
+- ☁️ Deployed on Render and accessible across all your devices - simply login to your Google account!
 
 ## 🔧 Tech Stack
 
@@ -39,19 +39,21 @@ Google Sign-In is implemented using Firebase Authentication. The backend verifie
 So you can use this application across all devices with your Google account!
 
 ## 📁 Project Structure (Simplified)
+```text
 /frontend
 ├── src
-│ ├── components
-│ ├── pages
-│ ├── lib/axios.js
-│ └── main.jsx
+│   ├── components
+│   ├── pages
+│   ├── lib/axios.js
+│   └── main.jsx
 
 /backend
 ├── src
-│ ├── controllers/
-│ ├── routes/
-│ ├── models/
-│ ├── config/
-│ └── middleware/
+│   ├── controllers/
+│   ├── routes/
+│   ├── models/
+│   ├── config/
+│   └── middleware/
 └── server.js
+
 
