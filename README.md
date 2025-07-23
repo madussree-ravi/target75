@@ -1,7 +1,7 @@
-# 🎯 Target75 – Smart Attendance Tracker
+# 🎯 Target75 – Attendance, Simplified for Students
 
 **Target75** is a full-stack web application built with the MERN stack that helps students keep track of their subject attendance, visualize progress, and aim for the golden 75% attendance mark. It supports marking daily attendance, undoing mistakes, and persisting data securely with authentication via Google.
-Designed specifically for students — especially those using iOS devices —  who currently lack a reliable attendance tracker on the App Store. 
+Designed specifically for students — especially those using **iOS** devices —  who currently lack a reliable attendance tracker on the App Store. 
 
 ## ✨ Features
 
